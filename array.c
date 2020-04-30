@@ -7,25 +7,29 @@ double distance(double a[2], double b[2]);
 
 // define void function to dynamically allocate array
 void push(double *arr, int ind){
-	realloc(arr, sizeof(double)*ind*4 + sizeof(double)*4);
+	arr = (double *) realloc(arr, sizeof(double) * ind * 4 + sizeof(double) * 4);
+	// printf("block size: %d\n", sizeof(double) * ind * 4 + sizeof(double) * 4);
 }
 
 // define global variables
-double step = 1;
+double step = 0.05;
 double a[2] = {0, 0};
-double b[2] = {1, 0};
-double u = 2;
-double v = 3;
+double b[2] = {9, 0};
+double u = 1.7;
+double v = 2;
 
 int main () {
+	int x = sizeof(double);
+	printf("the size of a double is: %d\n", x);
+
 	// define dynamic array to store historical data
-	double *hist = malloc(4*sizeof(double));
+	double *hist = malloc(4 * sizeof(double));
 
 	// using flag technique
 	long flag = 0;
 	while (flag != -1){
 
-    printf("%lf\n", distance(a, b));
+	printf("now the distance is: %lf\n", distance(a, b));
 
 		// update vectors
 		change();
@@ -42,7 +46,7 @@ int main () {
 
 		// flag and raise if necessary
 		flag++;
-		if (distance(a, b) < (step* (v - u))) {
+		if (distance(a, b) < 2 * (step * (v - u))) {
 			flag = -1;
 		}
 		
